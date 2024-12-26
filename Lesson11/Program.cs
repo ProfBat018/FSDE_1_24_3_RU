@@ -1,15 +1,46 @@
-﻿using Lesson11.Data.DTO.User;
+﻿using Lesson11;
 using Lesson11.Implementations;
 using Lesson11.Interfaces;
 
+Menu menu = new();
+IMovieService movieService = new MovieService();
 
-UserService userService = new UserService();
+menu.DisplayMenu();
 
+MenuChoice choice = menu.GetMenuChoice();
 
-var user = userService.LoginUser(new Login_DTO("Elvin_123", "Elvin_1234"));
+bool flag = true;
+while (flag)
+{
+    switch (choice.Id)
+    {
+        case 1:
+            Console.WriteLine($"You chose {choice.Description}");
 
-Console.WriteLine(user.Username);
+            Console.WriteLine("Enter movie name:");
+            var movieName = Console.ReadLine();
+            
+            var res = movieService.SearchMovie(movieName);
 
+            Console.WriteLine(res);
 
+            foreach (var movie in res.results)
+            {
+                Console.WriteLine(movie);
+            }
+            
+            break;
+        case 2:
+            Console.WriteLine($"You chose {choice.Description}");
+            break;
+        case 3:
+            flag = false;
+            Console.WriteLine("Exit");
+            break;
+        default:
+            Console.WriteLine("Invalid choice");
+            break;
+    }
+}
 
-    
+Console.WriteLine("Goodbye!");

@@ -6,6 +6,11 @@ public class MovieSearchResult
     public Results[] results { get; set; }
     public int total_pages { get; set; }
     public int total_results { get; set; }
+    
+    public override string ToString()
+    {
+        return $"Page: {page}, Total Pages: {total_pages}, Total Results: {total_results}";
+    }
 }
 
 public class Results
@@ -24,5 +29,10 @@ public class Results
     public bool video { get; set; }
     public double vote_average { get; set; }
     public int vote_count { get; set; }
+    
+    public override string ToString()
+    {
+        return $"{title} ({release_date})";
+    }
 }
 

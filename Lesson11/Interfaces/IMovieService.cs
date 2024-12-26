@@ -4,5 +4,5 @@ namespace Lesson11.Interfaces;
 
 public interface IMovieService
 {
-    public MovieSearchResult SearchMovie(string movieName);
+    public MovieSearchResult? SearchMovie(string movieName, int page = 1);
 }
