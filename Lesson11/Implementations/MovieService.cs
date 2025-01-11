@@ -30,11 +30,9 @@ public class MovieService : IMovieService
         };
 
         // Отправляю запрос и получаю ответ
-
         var response = client.Send(request); // Отправляю запрос и получаю ответ
 
         response.EnsureSuccessStatusCode(); // Проверяю успешность запроса
-
         
         var responseStream = response.Content.ReadAsStream(); // Считываю ответ в поток
 

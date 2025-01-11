@@ -236,3 +236,114 @@ class Car : ITransport
 
 С этой темой мы еще не закончили и еще очень долго будет ее проходить параллельно с другими темами. К следующему уроку вы должны знать абсолютно наизусть и понимать как работает все то
 , что я сказал.
+
+
+# Подведем итоги между интерфейсами и абстрактными классами
+
+Интерфейсы не могут хранить поля и вообще какие-то данные. 
+С C# версии 7.0 они могут хранить реализацию методов. Сейчас вам покажу пример который
+взорвет вам голову. 
+
+```csharp
+
+ITransport a = new Car();
+
+a.Stop(); // Transport is stopped
+
+
+interface ITransport
+{
+    void Move();
+    void Stop()
+    {
+        Console.WriteLine("Transport is stopped");
+    }
+}
+
+```
+
+```csharp
+
+ITransport a = new Car();
+
+a.Stop(); // Car is stopped
+
+interface ITransport
+{
+    void Move();
+    void Stop()
+    {
+        Console.WriteLine("Transport is stopped");
+    }
+}
+
+
+class Car : ITransport
+{
+    public void Move()
+    {
+        Console.WriteLine("Car is moving");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Car is stopped");
+    }
+}
+
+```
+
+По идее ты можешь создать абстрактный класс и использовать его как интерфейс, но мы знаем что C# поддерживает наследование только от одного класса.
+Поэтому интерфейсы это хороший способ для того чтобы реализовать описание поведения какой-то сущности. 
+
+Свойство созданное в интерфейсе не храниться в нем, а хранится в классе который его реализует. 
+
+
+## Проблема сокрытия имен в интерфейсах
+
+```csharp
+
+interface ITransport
+{
+    void Move();
+    void Stop();
+}
+
+interface IGun
+{
+    void Shoot();
+    void Stop();
+}
+
+class Tank : ITransport, IGun
+{
+    public void Move()
+    {
+        Console.WriteLine("Tank is moving");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Tank is stopped");
+    }
+
+    public void Shoot()
+    {
+        Console.WriteLine("Tank is shooting");
+    }
+}
+
+```
+
+В данном примере вы увидите ошибку потому что метод `Stop` в интерфейсах `ITransport` и `IGun` имеет одинаковое имя. 
+Вам надо будет переименовать один из методов чтобы компилятор не ругался. 
+
+
+
+
+
+
+
+
+
+

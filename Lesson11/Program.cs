@@ -22,8 +22,6 @@ while (flag)
             
             var res = movieService.SearchMovie(movieName);
 
-            Console.WriteLine(res);
-
             foreach (var movie in res.results)
             {
                 Console.WriteLine(movie);
