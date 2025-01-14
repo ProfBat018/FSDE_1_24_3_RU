@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ", "LINQ.csproj", "{38D9D07A-1B73-4F8A-B5D4-A98DBE9433AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38D9D07A-1B73-4F8A-B5D4-A98DBE9433AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38D9D07A-1B73-4F8A-B5D4-A98DBE9433AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38D9D07A-1B73-4F8A-B5D4-A98DBE9433AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38D9D07A-1B73-4F8A-B5D4-A98DBE9433AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
