@@ -38,6 +38,10 @@ public class NumbersCollection : IEnumerable<int>
         for (int i = 1; i <= 5; i++)
         {
             yield return i; // возвращает элемент по одному
+            if (i == 3)
+            {
+                yield break;
+            }
         }
     }
 
@@ -155,7 +159,7 @@ class Person : ICloneable
 void Main()
 {
 	Person person = new Person { Name = "Tom", Age = 23 };
-	Person clone = (Person)person.Clone();
+	Person? clone = person.Clone() as Person;
 }
 
 ```
