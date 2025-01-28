@@ -1,1 +1,0 @@
-public delegate float TaxDelegate(float amount);
