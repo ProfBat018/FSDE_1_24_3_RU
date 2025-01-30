@@ -33,7 +33,7 @@
 
 ```sql
 
-@IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = 'Academy')
+IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = 'Academy')
     CREATE DATABASE Academy
    
 GO
