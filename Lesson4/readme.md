@@ -1,5 +1,4 @@
 # Тема урока: DML
-
 - DML
 - Вставка данных
 - Обновление данных
@@ -21,7 +20,8 @@
 
 ## DML
 
-`DML` (Data Manipulation Language) - язык манипуляции данными. Он используется для вставки, обновления, удаления и выборки данных из таблицы.
+`DML` (Data Manipulation Language) - язык манипуляции данными.
+Он используется для вставки, обновления, удаления и выборки данных из таблицы.
 
 В синтаксис `DML` входят следующие команды:
 
@@ -51,12 +51,21 @@
 INSERT INTO Students VALUES (N'Elvin', N'Azimov', N'elvin.azim@outlook.com', '16.11.2001');
 ```
 
+
 2. Вставка данных в определенные столбцы таблицы:
 ```sql
 INSERT INTO Students (Name, Surname, Email, BirthDate)
 VALUES (N'Elvin', N'Azimov', N'elvin.azim@outlook.com', '16.11.2001');
 ```
 
+3. Если вы хотите сразу вставить несколько строк данных:
+```sql
+
+INSERT INTO Students (Name, Surname, Email, BirthDate)
+VALUES (N'Elvin', N'Azimov', N'elvin.azim@outlook.com', '16.11.2001'),
+       (N'Elvin', N'Azimov', N'elvin.azim@outlook.com', '16.11.2001');
+
+```
 Я считаю что второй способ более предпочтительный,
 так как он позволяет вставлять данные в определенные столбцы таблицы, 
 что упрощает работу с данными.
@@ -82,7 +91,6 @@ WHERE Id = 1;
 `SELECT` - команда для выборки данных из таблицы.
 
 ```sql
-
 SELECT * FROM Students;
 ```
 
@@ -127,6 +135,7 @@ DELETE FROM Students;
 ```sql
 
 SELECT * FROM Students WHERE Id IN (1, 2, 3);
+SELECT * FROM Students WHERE Name IN (N'Elvin', N'Samir');
 ```
 
 `BETWEEN` - оператор для сравнения значения в диапазоне.
@@ -152,6 +161,10 @@ SELECT * FROM Students WHERE Name LIKE N'A%';
 ```sql
 
 SELECT TOP 3 * FROM Students;
+```
+
+```sql
+SELECT TOP 3 * FROM Students ORDER BY Id DESC;
 ```
 
 ## CASE WHEN

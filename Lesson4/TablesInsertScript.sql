@@ -1,3 +1,6 @@
+use Academy_2;
+go;
+
 -- Заполняем People
 INSERT INTO People (Name, Surname, BirthDate) VALUES
 (N'Алексей', N'Иванов', '1985-05-14'),
@@ -52,6 +55,6 @@ INSERT INTO GroupCurator (PersonId, GroupId) VALUES
 
 -- Заполняем StudentPoint
 INSERT INTO StudentPoint (StudentId, SubjectId, Point) VALUES
-(1, 1, 85),
-(2, 2, 90),
-(3, 3, 78);
+(1, 1, 8),
+(2, 2, 12),
+(3, 3, 6);

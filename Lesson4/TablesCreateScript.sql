@@ -1,3 +1,4 @@
+
 -- Создание таблицы People
 CREATE TABLE People
 (
@@ -19,8 +20,10 @@ CREATE TABLE [Group]
 (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     GroupNumber NVARCHAR(50) NOT NULL,
-    FacultyId INT FOREIGN KEY REFERENCES Faculty(Id)
+    FacultyId INT FOREIGN KEY REFERENCES Faculty(Id) on DELETE CASCADE
 );
+
+-- On DELETE CASCADE - при удалении факультета, удаляются все группы, которые к нему относятся
 
 -- Создание таблицы Position
 CREATE TABLE Position
@@ -54,6 +57,7 @@ CREATE TABLE Teacher
     GroupId INT FOREIGN KEY REFERENCES [Group](Id)
 );
 
+
 -- Создание таблицы Staff
 CREATE TABLE Staff
 (
@@ -76,5 +80,5 @@ CREATE TABLE StudentPoint
     Id INT IDENTITY(1,1) PRIMARY KEY,
     StudentId INT FOREIGN KEY REFERENCES Student(Id),
     SubjectId INT FOREIGN KEY REFERENCES Subject(Id),
-    Point INT NOT NULL
+    Point INT NOT NULL CHECK (Point >= 1 AND Point <= 12)
 );
