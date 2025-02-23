@@ -35,17 +35,17 @@ while (reader.Read())
 // давайте установим пакет Microsoft.Extensions.Configuration.Json
 
 
-using Dapper;
-using DapperIntro;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-
-var configBuilder = new ConfigurationBuilder();
-configBuilder.AddJsonFile("appsettings.json");
-
-var config = configBuilder.Build();
-
-var connectionString = config.GetConnectionString("Default");
+// using Dapper;
+// using DapperIntro;
+// using Microsoft.Data.SqlClient;
+// using Microsoft.Extensions.Configuration;
+//
+// var configBuilder = new ConfigurationBuilder();
+// configBuilder.AddJsonFile("appsettings.json");
+//
+// var config = configBuilder.Build();
+//
+// var connectionString = config.GetConnectionString("Default");
 
 #endregion
 
@@ -156,5 +156,127 @@ foreach (var role in userRoles)
 //
 // Console.WriteLine($"There are {count} users in the database");
 //
+
+#endregion
+
+#region Part7
+
+// ExecuteNonQuery 
+//
+// using var connection = new SqlConnection(connectionString);
+//
+// connection.Open();
+//
+// var sqlQuery = "insert into Roles (roleName) values (N'Editor')";
+//
+// var sqlCommand = new SqlCommand(sqlQuery, connection);
+//
+// var rowsAffected = sqlCommand.ExecuteNonQuery();
+//
+// Console.WriteLine($"{rowsAffected} rows affected...");
+
+
+#endregion
+
+#region Part8
+
+// Execute Non-Query with Dapper
+
+// using var connection = new SqlConnection(connectionString);
+//
+// connection.Open();
+//
+// var sqlQuery = "insert into Roles (roleName) values (N'Moderator')";
+//
+// var rowsAffected = connection.Execute(sqlQuery);
+//
+// Console.WriteLine($"{rowsAffected} rows affected...");
+//
+#endregion
+
+// Все примеры ниже этого участка работают с базой данных Ecommerce_3 
+
+#region ConnectionString
+
+using Dapper;
+using DapperIntro.Models.Ecommerce;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+
+var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+var connectionString = config.GetConnectionString("Ecommerce");
+
+
+#endregion
+
+#region Part9
+
+// Relationships in Dapper 
+// Recursive relationships
+//
+// using var connection = new SqlConnection(connectionString);
+//
+// connection.Open();
+//
+// var sqlQuery = """
+//                SELECT C.Name, PC.Name
+//                FROM Categories AS C
+//                INNER JOIN Categories AS PC ON C.ParentCategoryID = PC.CategoryID
+//                WHERE C.ParentCategoryID IS NOT NULL
+//                """;
+//
+//
+//
+// var categories = connection.Query<Category, Category, Category>(sqlQuery, (category, parentcategory) =>
+// {
+//     category.ParentCategory = parentcategory;
+//     return category;
+// }, splitOn: "Name");
+//
+// foreach (var category in categories)
+// {
+//     Console.WriteLine($"{category.Name} - {category.ParentCategory.Name}"); 
+// }
+
+#endregion
+
+#region Part10
+
+// One toh many relationships
+
+using var connection = new SqlConnection(connectionString);
+
+var sqlQuery = """
+               select p.Name, c.Name from ProductCategories
+               inner join dbo.Products P on P.ProductID = ProductCategories.ProductID
+               inner join dbo.Categories C on C.CategoryID = ProductCategories.CategoryID; 
+               """;
+
+Product foo(Product product, Category category)
+{
+    product.Categories.Add(category);
+    return product;
+}
+
+var productCategories = connection.Query<Product, Category, Product>(
+    sqlQuery, (product, category) =>
+    {
+        product.Categories.Add(category);
+        return product;
+        
+    } , splitOn: "Name"
+);
+
+foreach (var product in productCategories)
+{
+    Console.WriteLine($"{product.Name}");
+    foreach (var category in product.Categories)
+    {
+        Console.WriteLine($"\t{category.Name}");
+    }
+}
+
+
 
 #endregion
