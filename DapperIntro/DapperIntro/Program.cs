@@ -1,7 +1,7 @@
 ﻿#region Part1 
-/*
-// Basic ADO.NET query example 
 
+// Basic ADO.NET query example 
+/*
 using System.Data;
 using Microsoft.Data.SqlClient;
 
@@ -22,8 +22,8 @@ while (reader.Read())
     // Console.WriteLine(reader["userName"] + "\t" + reader["email"]);
     Console.WriteLine(reader.GetString(0) + reader.GetString(1));
 }
-
 */
+
 #endregion
 
 #region ConnectionString
