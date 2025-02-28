@@ -3,7 +3,7 @@ using CodeFirst.Data.Contexts;
 using CodeFirst.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-using var context = new ShowroomContext();
+// using var context = new ShowroomContext();
 
 #region Part1
 
@@ -24,7 +24,6 @@ using var context = new ShowroomContext();
 //
 // context.SaveChanges();
 #endregion
-
 
 #region Part2
 
@@ -144,6 +143,7 @@ foreach (var car in cars)
 
 #region Part7
 
+/*
 var cars = context.Cars
     .Where(c => c.FuelType.FuelTypeName == "Diesel")
     .Select(c => new {c.Make, c.Model, c.FuelType.FuelTypeName, c.CarType.CarTypeName});
@@ -154,6 +154,22 @@ foreach (var car in cars)
 {
     Console.WriteLine($"{car.Make}\t{car.Model}\t{car.CarTypeName}\t{car.FuelTypeName}");
 }
+
+*/
+#endregion
+
+#region Part8
+
+using var context = new ShowroomContext();
+
+var cars = context.Cars
+    .Include(c => c.FuelType)
+    .Include(c => c.CarType)
+    .Select(c => new {c.Make, c.Model, c.CarType.CarTypeName, c.FuelType.FuelTypeName});
+
+Console.WriteLine(cars.ToQueryString());
+
+
 
 
 #endregion
