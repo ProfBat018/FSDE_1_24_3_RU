@@ -170,6 +170,4 @@ var cars = context.Cars
 Console.WriteLine(cars.ToQueryString());
 
 
-
-
 #endregion

@@ -9,6 +9,8 @@ public class ShowroomContext : DbContext
     public DbSet<Car> Cars { get; set; }
     public DbSet<CarType> CarTypes { get; set; }
     public DbSet<FuelType> FuelTypes { get; set; }
+    public DbSet<Salesman> Salesmen { get; set; }
+    public DbSet<Sale> Sales { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
