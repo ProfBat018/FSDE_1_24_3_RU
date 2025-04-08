@@ -78,7 +78,6 @@ Task.Run(() => findOdd(nums)).GetAwaiter().GetResult();
 
 #endregion
 
-
 #region Part3
 
 //
@@ -122,7 +121,6 @@ Task.Run(() => findOdd(nums)).GetAwaiter().GetResult();
 // Console.WriteLine($"End of thread: {Thread.CurrentThread.ManagedThreadId}");
 
 #endregion
-
 
 #region Part4
 
@@ -181,6 +179,7 @@ Task.Run(() => findOdd(nums)).GetAwaiter().GetResult();
 
 #region Part5
 
+/*
 Console.WriteLine($"Start of thread: {Thread.CurrentThread.ManagedThreadId}");
 
 void printNums(IEnumerable<int> nums)
@@ -195,7 +194,7 @@ void printNums(IEnumerable<int> nums)
     Console.WriteLine($"End of thread: {Thread.CurrentThread.ManagedThreadId}");
 }
 
-async Task<IEnumerable<int>> findEven(IEnumerable<int> nums)
+async Task<IEnumerable<int>> findEvenAsync(IEnumerable<int> nums)
 {
     return await Task.Run(() =>
     {
@@ -205,7 +204,7 @@ async Task<IEnumerable<int>> findEven(IEnumerable<int> nums)
     });
 }
 
-async Task<IEnumerable<int>> findOdd(IEnumerable<int> nums)
+async Task<IEnumerable<int>> findOddAsync(IEnumerable<int> nums)
 {
     return await Task.Run(() =>
     {
@@ -218,12 +217,243 @@ async Task<IEnumerable<int>> findOdd(IEnumerable<int> nums)
 
 var nums = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-var evenNums = await findEven(nums);
-var oddNums = await findOdd(nums);
+var evenNums = await findEvenAsync(nums);
+var oddNums = await findOddAsync(nums);
 
 printNums(evenNums);
 printNums(oddNums);
 
 Console.WriteLine($"End of thread: {Thread.CurrentThread.ManagedThreadId}");
+*/
+
+#endregion
+
+#region Part6
+
+// Console.WriteLine($"Start of main thread: {Thread.CurrentThread.ManagedThreadId}");
+//
+// void printNums(IEnumerable<int> nums)
+// {
+//     Console.WriteLine($"Thread: {Thread.CurrentThread.ManagedThreadId} is working on print");
+//     foreach (var num in nums)
+//     {
+//         Console.Write($"{num} ");
+//     }
+//
+//     Console.WriteLine();
+//     Console.WriteLine($"End of thread: {Thread.CurrentThread.ManagedThreadId}");
+// }
+//
+// IEnumerable<int> findEven(IEnumerable<int> nums)
+// {
+//     Console.WriteLine($"Start of thread: {Thread.CurrentThread.ManagedThreadId}");
+//     return nums.Where(x => x % 2 == 0);
+// }
+//
+// IEnumerable<int> findOdd(IEnumerable<int> nums)
+// {
+//     Console.WriteLine($"Start of thread: {Thread.CurrentThread.ManagedThreadId}");
+//     return nums.Where(x => x % 2 != 0);
+// }
+//
+// var nums = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+//
+// var evenNums = Task.Run(() => findEven(nums)).GetAwaiter().GetResult();
+// var oddNums = Task.Run(() => findOdd(nums)).GetAwaiter().GetResult();
+//
+// printNums(evenNums);
+// printNums(oddNums);
+//
+// Console.WriteLine($"End of main Thread: {Thread.CurrentThread.ManagedThreadId}");
+
+#endregion
+
+#region Part7
+
+/*
+Console.WriteLine($"Start of main thread: {Thread.CurrentThread.ManagedThreadId}");
+
+void printNums(IEnumerable<int> nums)
+{
+    Console.WriteLine($"Thread: {Thread.CurrentThread.ManagedThreadId} is working on print");
+    foreach (var num in nums)
+    {
+        Console.Write($"{num} ");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine($"End of thread: {Thread.CurrentThread.ManagedThreadId}");
+}
+
+Task<IEnumerable<int>> findEven(IEnumerable<int> nums)
+{
+    Console.WriteLine($"Find even start with thread: {Thread.CurrentThread.ManagedThreadId}");
+    return Task.Run(() =>
+    {
+        Console.WriteLine($"Find even task started with thread: {Thread.CurrentThread.ManagedThreadId}");
+        return nums.Where(x => x % 2 == 0);
+    });
+}
+
+Task<IEnumerable<int>> findOdd(IEnumerable<int> nums)
+{
+    Console.WriteLine($"Find odd start with thread: {Thread.CurrentThread.ManagedThreadId}");
+    return Task.Run(() =>
+    {
+        Console.WriteLine($"Find odd task started with thread: {Thread.CurrentThread.ManagedThreadId}");
+        return nums.Where(x => x % 2 != 0);
+    });
+}
+
+var nums = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+// var evenNums = findEven(nums).GetAwaiter().GetResult();
+// var oddNums = findOdd(nums).GetAwaiter().GetResult();
+
+// Task.Run(() => printNums(evenNums)).ContinueWith(task => printNums(oddNums));
+
+// printNums(evenNums);
+// printNums(oddNums);
+
+printNums(findEven(nums).GetAwaiter().GetResult());
+printNums(findOdd(nums).GetAwaiter().GetResult());
+
+
+Console.WriteLine($"End of main Thread: {Thread.CurrentThread.ManagedThreadId}");
+
+*/
+#endregion
+
+#region Part8
+
+/*
+void printNums(IEnumerable<int> nums)
+{
+    Console.WriteLine($"Thread: {Thread.CurrentThread.ManagedThreadId} is working on print");
+    foreach (var num in nums)
+    {
+        Console.Write($"{num} ");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine($"End of thread: {Thread.CurrentThread.ManagedThreadId}");
+}
+
+async Task<IEnumerable<int>> findEvenAsync(IEnumerable<int> nums)
+{
+    Console.WriteLine($"Find even start with thread: {Thread.CurrentThread.ManagedThreadId}");
+    await Task.Delay(1000);
+    return await Task.Run(() =>
+    {
+        Console.WriteLine($"Find even start with thread: {Thread.CurrentThread.ManagedThreadId}");
+        IEnumerable<int> evenNums = nums.Where(x => x % 2 == 0);
+        return evenNums;
+    });
+}
+
+async Task<IEnumerable<int>> findOddAsync(IEnumerable<int> nums)
+{
+    Console.WriteLine($"Find odd start with thread: {Thread.CurrentThread.ManagedThreadId}");
+    await Task.Delay(1000);
+    return await Task.Run(() =>
+    {
+        Console.WriteLine($"Find odd start with thread: {Thread.CurrentThread.ManagedThreadId}");
+        IEnumerable<int> oddNums = nums.Where(x => x % 2 != 0);
+        return oddNums;
+    });
+}
+
+var nums = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+var evenNums = await findEvenAsync(nums);
+var oddNums = await findOddAsync(nums);
+
+printNums(evenNums);
+printNums(oddNums);
+
+*/
+
+// printNums(await findEvenAsync(nums));
+// printNums(await findOddAsync(nums));
+
+// В отличии от кода сверху где каждый блок кода ждал пока выполнится другой в данном случае мы написали асинхронный код.
+// Для того чтобы понять во что это все преобразовывается мы можем написать все вручную.
+
+#endregion
+
+/*
+    Фишкой такого подхода является то, что мы используем Task, который использует ThreadPool.
+    Наш ThreadPool может быть даже не выделит новый поток, а просто переназначит действие старого.
+    Таким образом мы написали многопоточный код без явного использования Thread.
+
+    Это делает код более легковесным и управляемым, так как не нужно заботиться о создании и завершении потоков вручную.
+    Task.Run под капотом использует пул потоков, что означает:
+
+    - Нет необходимости вручную управлять жизненным циклом потоков.
+    - Потоки переиспользуются, а значит — меньше накладных расходов на создание/уничтожение.
+    - Мы можем запускать несколько задач параллельно, не блокируя основной поток.
+    - Такой подход хорошо масштабируется при умеренной нагрузке и идеально подходит для CPU-bound задач (как фильтрация).
+
+    Однако важно понимать, что Task.Run не делает код "магически" асинхронным — это просто удобная обёртка для выполнения действий в другом потоке.
+    Поэтому если задача не требует тяжелой работы CPU, а, например, работает с I/O (файлы, БД, сеть), лучше использовать настоящие async-методы с await.
+
+    Также стоит быть осторожным при использовании GetAwaiter().GetResult() или .Result — они блокируют поток и **могут привести к deadlock'ам в UI-приложениях** (например, в WPF или WinForms), если не использовать их правильно.
+
+    ✅ В консольных и серверных приложениях (например, ASP.NET Core) такой подход безопасен при контролируемом использовании.
+
+    Вывод: мы избавились от `async/await`, сохранили асинхронность, сделали код многопоточным и понятным, используя `Task` и `ThreadPool` напрямую.
+   */
+
+#region Part9
+
+// Parallel .ForEach
+
+/*
+ Класс Parallel позволяет выполнять параллельные операции над коллекциями. 
+    Например, Parallel.ForEach позволяет выполнять итерации по элементам коллекции в параллельных потоках.
+ */
+/*
+var nums = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+Parallel.ForEach(nums, num =>
+{
+    Console.WriteLine($"Thread: {Thread.CurrentThread.ManagedThreadId} is working on {num}");
+    Console.WriteLine($"End of thread: {Thread.CurrentThread.ManagedThreadId} is working on {num}");
+});
+*/
+// Такой подход нужен если нам не важке порядок выполнения задач, а важна скорость выполнения. 
+
+// Parallel LINQ 
+
+// Parallel LINQ (PLINQ) позволяет выполнять LINQ-запросы параллельно, что может значительно ускорить выполнение запросов на больших объемах данных.
+
+
+
+
+
+
+#endregion
+
+
+#region PLINQ_TEST
+
+using System.Diagnostics;
+
+Stopwatch stopwatch = new Stopwatch();
+
+stopwatch.Start();
+var nums = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+var evenNums = nums.AsParallel().Where(x => x % 2 == 0).ToList();
+
+stopwatch.Stop();
+
+Console.WriteLine(
+    $"Time taken for LINQ: {stopwatch.ElapsedTicks} ms");
+
+stopwatch.Reset();
+
+
+
 
 #endregion
