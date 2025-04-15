@@ -25,10 +25,7 @@ class SingletonObject
 
 #endregion
 
-
 #region Builder
-
-
 
 var builder = new ComplexObjectBuilder();
 
@@ -77,7 +74,8 @@ class ComplexObjectBuilder
 }
 
 
-
 #endregion
+
+
 
 
