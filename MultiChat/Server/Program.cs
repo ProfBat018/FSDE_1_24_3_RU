@@ -4,7 +4,7 @@ using System.Text;
 
 var serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-var address = IPAddress.Parse("127.0.0.1"); // всегда localhost
+var address = IPAddress.Parse("172.20.28.8"); // всегда localhost
 
 var endPoint = new IPEndPoint(address, 3003);
 
@@ -13,32 +13,50 @@ var buffer = new byte[1024]; // делаю буферный массив для 
 try
 {
     serverSocket.Bind(endPoint);
-
     serverSocket.Listen();
     Console.WriteLine($"Listening on {endPoint.Address}:{endPoint.Port}");
 
     while (true)
     {
-
-        var clientSocket = serverSocket.Accept(); // принимаю клиента 
+        var clientSocket = serverSocket.Accept();
         Console.WriteLine($"Client connected: {clientSocket.RemoteEndPoint}");
 
-        while (true)
+        // Передаем сокет клиенту в отдельный поток
+        ThreadPool.QueueUserWorkItem(state =>
         {
-            var bytesRead = clientSocket.Receive(buffer); // получаю данные от клиента 
-            var message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            Console.WriteLine($"{message}");
+            var socket = (Socket)state!;
+            var buffer = new byte[1024];
 
-            if (message.ToLower() == "quit")
+            try
             {
-                clientSocket.Shutdown(SocketShutdown.Both);
-                clientSocket.Close();
-                break;
+                while (true)
+                {
+                    var bytesRead = socket.Receive(buffer);
+                    if (bytesRead == 0) break;
+
+                    var message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Console.Write($"Thread: {Thread.CurrentThread.ManagedThreadId} works with {clientSocket.RemoteEndPoint}\n\t");
+
+                    Console.WriteLine($"[{socket.RemoteEndPoint}] {message}");
+
+                    if (message.Trim().ToLower() == "quit")
+                        break;
+                }
             }
-        }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                Console.WriteLine($"Client disconnected: {socket.RemoteEndPoint}");
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+            }
+        }, clientSocket);
     }
 }
 catch (Exception e)
 {
-    Console.WriteLine(e);
+    Console.WriteLine($"Server error: {e.Message}");
 }

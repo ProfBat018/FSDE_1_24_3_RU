@@ -4,7 +4,7 @@ using System.Text;
 
 var clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-var address = IPAddress.Parse("127.0.0.1");
+var address = IPAddress.Parse("172.20.28.8");
 var serverEndPoint = new IPEndPoint(address, 3003);
 
 Console.Write("Enter your username: ");
