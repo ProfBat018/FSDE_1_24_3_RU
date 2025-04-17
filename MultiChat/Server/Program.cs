@@ -27,7 +27,7 @@ try
         {
             var bytesRead = clientSocket.Receive(buffer); // получаю данные от клиента 
             var message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            Console.WriteLine($"Received message: {message}");
+            Console.WriteLine($"{message}");
 
             if (message.ToLower() == "quit")
             {
