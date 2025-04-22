@@ -15,16 +15,8 @@ while (true)
     using NetworkStream stream = client.GetStream();
     using var reader = new StreamReader(stream, Encoding.UTF8);
 
-    while (true)
-    {
-        string? message = await reader.ReadLineAsync();
 
-        if (message == null)
-            break;
-
-        Console.WriteLine($"Received: {message}");
-
-        if (message.ToLower() == "quit")
-            break;
-    }
+    string? message =  await reader.ReadLineAsync();
+    
+    Console.WriteLine($"Received: {message}");
 }

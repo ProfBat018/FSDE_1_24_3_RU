@@ -5,7 +5,7 @@ using System.Text;
 try
 {
     using var client = new TcpClient();
-    await client.ConnectAsync("172.20.208.18", 3003);
+    await client.ConnectAsync("172.20.28.8", 3003);
 
     using var networkStream = client.GetStream();
     using var writer = new StreamWriter(networkStream, Encoding.UTF8) { AutoFlush = true };
