@@ -1,0 +1,68 @@
+﻿<Window x:Class="Downloader.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Downloader.Views"
+        mc:Ignorable="d"
+        Title="MainView" Height="450" Width="800" WindowStyle="None">
+
+    <Grid MouseDown="Grid_MouseDown">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <Grid>
+            <Border>
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource Primary900Foreground}"/>
+                </Border.Background>
+            </Border>
+            
+            <StackPanel 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Center" 
+                Margin="0,0,10,0">
+
+                <Button 
+                    Name="Minimize"
+                    Click="Minimize_Click"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Background="Transparent"
+                    ToolTip="Minimize">
+                    <md:PackIcon Kind="Minimize" Foreground="#FF0000" Width="24" Height="24"/>
+                </Button>
+
+                <Button 
+                    Name="Maximize"
+                    Click="Maximize_Click"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Background="Transparent"
+                    ToolTip="Maximize">
+                    <md:PackIcon Kind="Maximize" Foreground="#FF0000" Width="24" Height="24"/>
+                </Button>
+
+                <Button 
+                    Name="Close"
+                    Click="Close_Click"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Background="Transparent"
+                    ToolTip="Close">
+                    <md:PackIcon Kind="Close" Foreground="#FF0000" Width="24" Height="24"/>
+                </Button>
+
+            </StackPanel>
+        </Grid>
+
+        <ContentControl 
+        Grid.Row="1"
+        Content="{Binding CurrentView, UpdateSourceTrigger=PropertyChanged}" />
+
+    </Grid>
+
+</Window>
