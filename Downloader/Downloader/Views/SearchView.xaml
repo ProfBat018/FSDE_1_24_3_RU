@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Downloader.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -22,22 +22,23 @@
         
         
         <TextBox Grid.Row="0" Grid.Column="0" x:Name="UrlTextBox"
-           materialDesign:HintAssist.Hint="Paste your link"
+           md:HintAssist.Hint="Paste your link"
            VerticalAlignment="Center"
+                 Text="{Binding URL, UpdateSourceTrigger=PropertyChanged}"
            Style="{StaticResource MaterialDesignOutlinedTextBox}"
            FontSize="16"
            Background="#f5f5f5"/>
         
-        <Button  Grid.Row="0" Grid.Column="1" Content="Search"
+        <Button  Grid.Row="0" Grid.Column="1" Content="{md:PackIcon Kind=Download, Size=32}"
                  Height="55"
           Style="{StaticResource MaterialDesignRaisedButton}"
           Background="#e53935"
           Foreground="White"
           VerticalAlignment="Center"
+          Command="{Binding DownloadCommand}"
           />
             
         </Grid>
-
 
         <ListBox Grid.Row="1">
             <ListBox.ItemTemplate>
