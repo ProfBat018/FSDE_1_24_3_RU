@@ -8,21 +8,24 @@
 
 // let form = document.getElementsByClassName("form");
 
-let form = document.getElementsByTagName("form");
+// let form = document.getElementsByTagName("form");
 
-form[0].onsubmit = function (event) {
-    event.preventDefault(); // предотвращаем обновление страницы
+// form[0].onsubmit = function (event) {
+//     event.preventDefault(); // предотвращаем обновление страницы
 
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
+//     let name = document.getElementById("name").value;
+//     let email = document.getElementById("email").value;
 
-    // alert("Имя: " + name + "\nEmail: " + email);
+//     // alert("Имя: " + name + "\nEmail: " + email);
 
-    let greetingMessage = document.createElement("p");
+//     let greetingMessage = document.createElement("p");
 
-    greetingMessage.innerText = "Имя: " + name + "\nEmail: " + email;
-    greetingMessage.style.color = "blue";
+//     greetingMessage.innerText = "Имя: " + name + "\nEmail: " + email;
+//     greetingMessage.style.color = "blue";
 
-    document.body.appendChild(greetingMessage);
+//     document.body.appendChild(greetingMessage);
 
-}
+// }
+
+
+// console.log(window);
