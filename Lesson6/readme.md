@@ -4,7 +4,6 @@
 - Для бонуса tailwindcss и как его подключить к проекту.
 - Применение form 
 - Promises и async/await 
-- Cookies, localStorage, sessionStorage
 - Пример приложения на JS и ASP.NET Core WEB API 
 
 

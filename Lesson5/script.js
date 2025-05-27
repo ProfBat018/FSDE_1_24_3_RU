@@ -32,3 +32,14 @@ console.log(admin.__proto__); // User {}
 console.log(user.__proto__ === User.prototype); // true
 
 console.log(user);
+
+var dataToSend = localStorage.getItem("dataToSend");
+
+await fetch("https://jsonplaceholder.typicode.com/posts/1", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dataToSend),
+})
+

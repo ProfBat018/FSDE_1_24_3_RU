@@ -14,6 +14,8 @@
 
     <body class="flex items-center justify-center min-h-screen bg-gray-100">
 
+        <h1 id="test">test1</h1>
+        <h1 id="test">test2</h1>
         <div class=" w-full max-w-md bg-white rounded-2xl shadow-lg overflow-hidden">
 
             <div class="flex justify-between">
@@ -34,14 +36,14 @@
                     <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome Back</h2>
                     <form id="loginForm" class="space-y-4">
                         <div>
-                            <label class="block text-sm text-gray-600">Email</label>
-                            <input required type="email"
+                            <label class="block text-sm text-gray-600">Username</label>
+                            <input id="usernameInput" required type="text"
                                 class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="Enter your email">
+                                placeholder="Enter your username">
                         </div>
                         <div>
                             <label class="block text-sm text-gray-600">Password</label>
-                            <input required type="password"
+                            <input id="passwordInput" required type="password"
                                 class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 placeholder="Enter your password">
                         </div>
