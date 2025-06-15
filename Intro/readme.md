@@ -1,35 +1,70 @@
-# Тема урока: Введение в JavaScript
-- Предыстория JavaScript
-- EcmaScript vs JavaScript 
-- Зачем нужен JavaScript 
-- Описание языка 
+# Getting Started with Create React App
 
-## Предыстория JavaScript 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Запомните, абсолютно любые важные элементы современного WEB-a начались с компании `Netscape`, которая в 1995 году выпустила первый браузер `Netscape Navigator`. В этом браузере был встроен язык программирования, который назвали `LiveScript`. Однако, чтобы привлечь внимание к языку, его переименовали в `JavaScript`, хотя на самом деле он не имел ничего общего с языком Java. 
+## Available Scripts
 
-Спустя определенное время компания `Microsoft` выпустила свой браузер `Internet Explorer`, в котором также был встроен язык программирования, который они назвали `JScript`. Этот язык был очень похож на JavaScript, но имел свои отличия. 
+In the project directory, you can run:
 
-После доминирования Internet Explorer, написание скриптов на стороне клиентов уже был на этапе тупика. Однако, в 1998 году была создана `ECMA International`, которая разработала стандарт для JavaScript, который называется `ECMAScript`. За присоединение к этому стандарту и разработку стал отвечать `ECMA International`. А первым к этой оргпнизации присоединился `Netscape`, то есть `Mozilla Firefox`. 
+### `npm start`
 
-После того как `EcmaScript` стал `opensource`, другие компании начали разрабатывать свои браузеры, которые поддерживали этот стандарт. В 2005 году был выпущен `ECMAScript 3`, который стал основой для большинства современных браузеров. С тех пор язык JavaScript стал очень популярным и используется во многих веб-приложениях.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## EcmaScript vs JavaScript
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-`EcmaScript` - это тоже язык, но у него нет консольного интерфейса, он не может работать с файлами и не может работать с сетью. То есть это язык, который предназначен для работы в браузере. Данный язык - это платформа, на котором разработан `JavaScript`.
+### `npm test`
 
-Есть различные скриптовые языки как `TypeScript`, `CoffeeScript`, `Dart` и другие, которые компилируются в `JavaScript`. То есть они используют `JavaScript` как платформу. Все это благодаря стандарту `ECMAScript`, который позволяет разработчикам создавать свои языки, которые могут работать в браузере. 
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Зачем нужен JavaScript 
+### `npm run build`
 
-`JS` - это язык широкого назначения. Конечно же первым делом на ум приходит работа с `WEB`, но это не единственное его применение. Вы также можете c помощью `Node.js` framework писать на нем `Back-end`, `Desktop` и `Mobile` приложения. 
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Описание языка
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-`JavaScript` - это интерпретируемый, нестроготипизированный, объектно-ориентированный язык программирования. Он поддерживает функциональное, объектно-ориентированное программирование. 
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run eject`
 
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
