@@ -42,4 +42,73 @@
 ### useEffect 
 Этот хук заменяет componentDidMount и componentWillUpdate. Он триггерится на любое изменние в компоненте или же мы моежем дать ему массив dependecies для того чтобы вызывать его только при обновлении конктреных элементов. 
 
+### useRef 
 
+В отличии от useState он не обновляет компонент при каждом изменении. Мы его использкем для того чтобы в самом конце ссылаться на нужный для нас объект и получить данные. 
+
+### useContext 
+
+Данный хук, решает проблему множественной передачи параметров. Предположим что вы используете выбор темы у себя в приложении. Как вы реализуете прорисовку компонента в зависимости от темы ? Конечно же в первую очередь в голову приходит передача темы в props(то есть в параметры), но тут никто конечно же вас от этого не отгаваривает. Предположим такую ситуацию: 
+
+1. В Компоненте App.JS прорисовывается вся программа. 
+2. В Navbar, я выбрал тему Night и теперь все компоненты должны перерисоваться 
+3. В Компоненте App.Js передается в параметры всех компонентов которые находятся в нем props={theme: "Black"}
+
+и тут назревает вопрос. **А что если в компоненте Navbar, есть компонент Menu, в нем компонеент Button, в нем компонент AppTextLabel и т.д. В таком случае будет property chaining. 
+
+Вот пример такой проблемы на примере с user: 
+
+```js
+import { useState } from "react";
+import ReactDOM from "react-dom/client";
+
+export default function ContextProblem() {
+  const [user, setUser] = useState("Jesse Hall");
+
+
+  return (
+    <>
+      <h1>{`Hello ${user}!`}</h1>
+      <Component2 user={user} />
+    </>
+  );
+}
+
+    export function Component2({ user }) {
+    return (
+        <>
+        <h1>Component 2</h1>
+        <Component3 user={user} />
+        </>
+    );
+    }
+
+    export function Component3({ user }) {
+    return (
+        <>
+        <h1>Component 3</h1>
+        <Component4 user={user} />
+        </>
+    );
+    }
+
+    export function Component4({ user }) {
+    return (
+        <>
+        <h1>Component 4</h1>
+        <Component5 user={user} />
+        </>
+    );
+    }
+
+    export function Component5({ user }) {
+    return (
+        <>
+        <h1>Component 5</h1>
+        <h2>{`Hello ${user} again!`}</h2>
+        </>
+    );
+    }
+```
+
+Контекст решает это следующим образом. Пример можете посмотреть в Login.jsx в проекте func-components для смены темы. 

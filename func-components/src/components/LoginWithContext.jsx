@@ -1,48 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import './Login.css';
 
 
-/*
-export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+import { useContext, useEffect, useRef } from 'react';
+import { ThemeContext } from '../App';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
-
-  return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Log In</button>
-      </form>
-    </div>
-  );
-};
-
-*/
-
-import { useRef } from 'react';
-
-export const Login = (props) => {
+export const LoginWithContext = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -68,9 +29,10 @@ export const Login = (props) => {
     fontWeight: 'bold',
   };
 
-  useEffect(() => {
-    console.log(props.theme);
+  const theme = useContext(ThemeContext);
 
+  useEffect(() => {
+    console.log(theme);
   })
 
   const handleSubmit = (e) => {
@@ -85,7 +47,7 @@ export const Login = (props) => {
       <input type="password" ref={passwordRef} placeholder="Password" required />
 
       {
-        props.theme == "light" ?
+        theme == "light" ?
           <button style={whiteButtonStyle} type="submit">Log In</button>
           :
           <button style={blackButtonStyle} className='submit-btn' type="submit">Log In</button>
