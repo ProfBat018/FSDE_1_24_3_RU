@@ -1,10 +1,9 @@
 import React, { useRef } from 'react';
-import { fetchMovies } from '../services/fetchService';
 
 // function SearchForm({onSendData}) {
 
 //     const searchInput = useRef();
-    
+
 //     const handleSubmit = (e) => {
 //         e.preventDefault();
 //         fetchMovies(searchInput.current.value);
@@ -45,25 +44,39 @@ import { fetchMovies } from '../services/fetchService';
 
 
 
-function SearchForm({setValue}) {
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import useSWR from 'swr';
+import { fetcher } from '../services/fetchService';
 
-    const searchInput = useRef();
-    
-    const handleSubmit = async (e) => {
+function SearchForm({ setValue }) {
+    const searchInput = useRef(null);
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const res = await fetchMovies(searchInput.current.value);
-        setValue(res);
-    }
+        setValue(data);
+    };
 
-  
+
+    const { data } = useSWR(
+        {
+            movieName: searchInput?.current?.value,
+            page: 1
+        }, fetcher);
 
     return (
-        <div className='m-5 h-12'>
-            <form>
-                <input className='w-96 h-[50px]' ref={searchInput} placeholder='Enter movie name' type='search' name="movie-name" id="movie-name" />
-                <button onClick={(e) => handleSubmit(e)} type='submit'>Search</button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit} className="flex items-center space-x-4 w-full max-w-xl">
+            <Input
+                ref={searchInput}
+                placeholder="Enter movie name"
+                type="search"
+                name="movie-name"
+                id="movie-name"
+                className="flex-grow"
+            />
+            <Button type="submit">Search</Button>
+        </form>
     );
 }
+
 export default SearchForm;

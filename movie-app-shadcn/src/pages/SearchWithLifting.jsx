@@ -1,47 +1,73 @@
-import React, {  useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import SearchForm from '../components/SearchForm';
-import {  useMemo } from 'react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 
 
 function SearchWithLifting() {
-    const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
 
-    const movieCards = useMemo(() => {
-        if (!movies.results) return null;
+  useEffect(() => {
+    console.log('movies', movies);
+  }, [movies]);
+    
 
-        return movies.results.map((m) => (
-            <div key={m.id} className="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-72">
-                <div className="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
-                    <img
-                        src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-                        alt="card-image"
-                    />
-                </div>
-                <div className="p-4">
-                    <h6 className="mb-2 text-slate-800 text-xl font-semibold">
-                        {m.title}
-                    </h6>
-                    <p className="text-slate-600 leading-normal font-light">
-                        {m.overview}
-                    </p>
-                </div>
-                <div className="px-4 pb-4 pt-0 mt-2">
-                    <button className="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        Read more
-                    </button>
-                </div>
-            </div>
-        ));
-    }, [movies]);
+  const movieCards = useMemo(() => {
+    if (!movies.results) return null;
 
-    return (
-        <div className="flex items-center justify-center flex-col">
-            <SearchForm setValue={setMovies} />
-            <div className="flex flex-row flex-wrap justify-center gap-4">
-                {movieCards}
-            </div>
+    return movies.results.map((m) => (
+      <Card key={m.id} className="w-72">
+        <div className="relative h-56 overflow-hidden rounded-t-md">
+          <img
+            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+            alt="card-image"
+            className="object-cover w-full h-full"
+          />
         </div>
-    );
+        <CardHeader>
+          <CardTitle className="text-xl">{m.title}</CardTitle>
+          <CardDescription>{m.overview?.slice(0, 120)}...</CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button>Read more</Button>
+        </CardFooter>
+      </Card>
+    ));
+  }, [movies]);
+
+  return (
+    <div className="flex flex-col items-center justify-center space-y-6 px-4 py-8">
+      <SearchForm setValue={setMovies} />
+      <div className="flex flex-wrap justify-center gap-6">
+        {movieCards}
+      </div>
+      <Pagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious href="#" />
+    </PaginationItem>
+    {movies?.total_pages > 1 && Array.from({ length: movies.total_pages }, (_, index) => (
+        <PaginationItem key={index}>
+            <a href="#" className="px-3 py-2">
+            {index + 1}
+            </a>
+        </PaginationItem>
+        ))}
+    <PaginationItem>
+      <PaginationNext href="#" />
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>
+    </div>
+  );
 }
 
 export default SearchWithLifting;
