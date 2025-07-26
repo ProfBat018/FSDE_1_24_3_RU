@@ -7,7 +7,7 @@ public class User
     public string Surname { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
-    public bool IsConfirmed { get; set; }
+    public bool IsConfirmed { get; set; } = false;
 
     public ICollection<UserRole> UserRoles { get; set; }
 }

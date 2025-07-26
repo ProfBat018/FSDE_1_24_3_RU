@@ -1,4 +1,6 @@
-﻿public class Result
+﻿namespace UserService.API.DTOs.Response;
+
+public class Result
 {
     public bool IsSuccess { get; }
     public string Message { get; }

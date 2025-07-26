@@ -1,4 +1,4 @@
-﻿namespace UserService.API.DTO.Response;
+﻿namespace UserService.API.DTOs.Response;
 
 public class TypedResult<T>
 {
