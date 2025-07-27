@@ -1,38 +1,10 @@
-using System.Reflection;
-using Microsoft.EntityFrameworkCore;
-using Scalar.AspNetCore;
-using UserService.API.Middlewares;
-using UserService.API.Services.Classes;
-using UserService.API.Services.Interfaces;
-using UserService.Data.Data.Contexts;
+using UserService.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
-builder.Services.AddControllers();
-
-builder.Services.AddDbContext<UserDbContext>(ops => 
-    ops.UseSqlServer(builder.Configuration.GetConnectionString("Mac")));
-
-builder.Services.AddSingleton<GlobalExceptionMiddleware>();
- 
-builder.Services.AddScoped<IAccountService, AccountService>();
-
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-app.UseMiddleware<GlobalExceptionMiddleware>();
-
-app.MapScalarApiReference();
-
-app.MapControllers();
-app.UseHttpsRedirection();
-
+app.UseApplicationMiddleware();
 app.Run();
-
