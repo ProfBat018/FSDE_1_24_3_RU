@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using UserService.API.Middlewares;
 using UserService.API.Services.Classes;
@@ -25,6 +26,9 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IRoleService, RoleService>();
+        services.AddScoped<IUserService, Services.Classes.UserService>();
+        services.AddScoped<EmailSender>();
         services.AddSingleton<GlobalExceptionMiddleware>();
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
