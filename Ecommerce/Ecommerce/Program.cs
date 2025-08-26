@@ -2,14 +2,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Ecommerce.Data;
 using Ecommerce.Areas.Identity.Data;
+using ProductRepository.Contexts;
 var builder = WebApplication.CreateBuilder(args);
 
 
-var connectionString = builder.Configuration.GetConnectionString("AuthContextConnection") ?? throw new InvalidOperationException("Connection string 'AuthContextConnection' not found.");;
+var authConnectionString = builder.Configuration.GetConnectionString("AuthContextConnection") ?? throw new InvalidOperationException("Connection string 'AuthContextConnection' not found.");;
+var ecommerceConnectionString = builder.Configuration.GetConnectionString("ProductsContextConnection") ?? throw new InvalidOperationException("Connection string 'AuthContextConnection' not found.");;
 
 
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<AuthContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<AuthContext>(options => options.UseSqlServer(authConnectionString));
+builder.Services.AddDbContext<ProductsContext>(options => options.UseSqlServer(ecommerceConnectionString));
 
 builder.Services.AddDefaultIdentity<EcommerceUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthContext>();
 
