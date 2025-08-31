@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Ecommerce.Areas.Identity.Pages.Account
@@ -29,21 +30,23 @@ namespace Ecommerce.Areas.Identity.Pages.Account
         private readonly IUserStore<EcommerceUser> _userStore;
         private readonly IUserEmailStore<EcommerceUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        // private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<EcommerceUser> userManager,
             IUserStore<EcommerceUser> userStore,
             SignInManager<EcommerceUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
+            _roleManager = roleManager;
+            // _emailSender = emailSender;
         }
 
         /// <summary>
@@ -115,6 +118,26 @@ namespace Ecommerce.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                // var rolesFromDb = await _roleManager.Roles.ToListAsync();
+                // var appRoles = typeof(AppRole).GetFields().Select(p => p.Name).ToList();
+                //
+                // if (!rolesFromDb.Any())
+                // {
+                //     foreach (var role in appRoles)
+                //     {
+                //         await _roleManager.CreateAsync(new IdentityRole(role));
+                //     }
+                // }
+                // else
+                // {
+                //     foreach (var role in rolesFromDb)
+                //     {
+                //         appRoles.Contains(role.NormalizedName);
+                //     }
+                // }
+
+                await _userManager.AddToRoleAsync(user, "AppUser");
+                
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -132,8 +155,8 @@ namespace Ecommerce.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    // await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

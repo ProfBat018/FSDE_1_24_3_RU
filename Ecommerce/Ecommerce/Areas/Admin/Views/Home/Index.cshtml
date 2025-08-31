@@ -1,25 +1,70 @@
-@model Ecommerce.Areas.Admin.Models.IndexModel
-
 @{
-    Layout = "_Layout";
+    ViewData["Title"] = "Products";
+    Layout = "../_AdminLayout.cshtml";
 }
 
-<!DOCTYPE html>
+<h1 class="mb-4">Products</h1>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-    <ul>
-        @foreach (var product in Model.Products)
-        {
-            <li>
-                @product.ProductName
-            </li> 
-        }
-    </ul>
+<div class="card">
+    <div class="card-body">
+        <table id="products" class="table table-hover table-bordered w-100">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Updated</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
-</body>
-</html>
+
+@section Scripts {
+    <script>
+$(function () {
+    
+    
+    const apiUrl = "http://localhost:5276/api/v1/admin/Product/All/1/15";
+
+    // Если ответ: { items: [ {...}, ... ] } — укажи dataSrc: 'items'
+    // Если ответ: [ {...}, ... ] — оставь dataSrc: ''
+    $('#products').DataTable({
+        processing: true,
+        paging: true,          // клиентская пагинация (на 15 записей, которые уже пришли)
+        pageLength: 15,
+        searching: true,
+        ordering: true,
+        ajax: {
+            url: apiUrl,
+            type: 'GET',
+            dataSrc: 'data' // или 'items' если у тебя обёртка { items:[...] }
+        },
+        columns: [
+            { data: 'id' },
+            { data: 'name' },
+            { data: 'price', render: $.fn.dataTable.render.number(' ', ',', 2, '$') },
+            { data: 'stock' },
+            { data: 'categoryName' },
+            { data: 'updatedAt', render: function (d) { return d ? new Date(d).toLocaleString() : ''; } },
+            {
+                data: null,
+                orderable: false,
+                searchable: false,
+                render: function (row) {
+                    return `
+                        <div class="btn-group btn-group-sm">
+                            <a href="/Admin/Product/Edit/${row.id}" class="btn btn-primary">Edit</a>
+                            <a href="/Admin/Product/Details/${row.id}" class="btn btn-secondary">View</a>
+                        </div>`;
+                }
+            }
+        ]
+    });
+});
+</script>
+}

@@ -1,4 +1,6 @@
+using System.Reflection;
 using Ecommerce;
+using Ecommerce.Areas.Admin.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Ecommerce.Data;
@@ -7,16 +9,39 @@ using ProductRepository.Contexts;
 var builder = WebApplication.CreateBuilder(args);
 
 
-var authConnectionString = builder.Configuration.GetConnectionString("AuthContextConnection") ?? throw new InvalidOperationException("Connection string 'AuthContextConnection' not found.");;
-var ecommerceConnectionString = builder.Configuration.GetConnectionString("ProductsContextConnection") ?? throw new InvalidOperationException("Connection string 'AuthContextConnection' not found.");;
+var authConnectionString = builder.Configuration.GetConnectionString("AuthContextConnection16") ?? throw new InvalidOperationException("Connection string 'AuthContextConnection' not found.");;
+var ecommerceConnectionString = builder.Configuration.GetConnectionString("ProductsContextConnection16") ?? throw new InvalidOperationException("Connection string 'AuthContextConnection' not found.");;
 
 
 builder.Services.AddRazorPages();
+
+
 builder.Services.AddDbContext<AuthContext>(options => options.UseSqlServer(authConnectionString));
 builder.Services.AddDbContext<ProductsContext>(options => options.UseSqlServer(ecommerceConnectionString));
 
-builder.Services.AddDefaultIdentity<EcommerceUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthContext>();
 
+builder.Services.AddIdentity<EcommerceUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<AuthContext>()
+    .AddDefaultTokenProviders();
+
+
+builder.Services.AddAuthorization(ops =>
+{
+    ops.AddPolicy("AdminPolicy",
+        policy =>
+        {
+            policy.RequireRole("AppSuperAdmin", "AppAdmin");
+        });
+    
+    ops.AddPolicy("UserPolicy",
+        policy =>
+        {
+            policy.RequireAuthenticatedUser();
+        });
+});
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddScoped<ProductService>();
 
 builder.Services.AddControllersWithViews();
 
