@@ -1,3 +1,4 @@
+using Ecommerce;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Ecommerce.Data;
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<ProductsContext>(options => options.UseSqlServer(e
 
 builder.Services.AddDefaultIdentity<EcommerceUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuthContext>();
 
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -24,6 +26,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 
 app.UseHttpsRedirection();
 app.UseRouting();
@@ -36,8 +39,13 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+// using (var scope = app.Services.CreateScope())
+// {
+//     var db = scope.ServiceProvider.GetRequiredService<ProductsContext>();
+//     await ProductsContextSeeder.SeedAsync(db);
+// }
 
 app.Run();

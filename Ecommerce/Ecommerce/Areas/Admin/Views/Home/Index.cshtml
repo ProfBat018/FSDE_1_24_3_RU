@@ -1,4 +1,25 @@
-﻿@page
-@model Ecommerce.Areas.Admin.Views.Home.IndexModel
+@model Ecommerce.Areas.Admin.Models.IndexModel
+
 @{
+    Layout = "_Layout";
 }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+    <ul>
+        @foreach (var product in Model.Products)
+        {
+            <li>
+                @product.ProductName
+            </li> 
+        }
+    </ul>
+</div>
+</body>
+</html>

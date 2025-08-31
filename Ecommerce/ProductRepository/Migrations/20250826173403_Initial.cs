@@ -185,7 +185,7 @@ namespace ProductRepository.Migrations
                     ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     WarehouseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false)
+                    Price = table.Column<double>(type: "money", nullable: false)
                 },
                 constraints: table =>
                 {
