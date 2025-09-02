@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AuthApi.Contracts\AuthApi.Contracts.csproj" />
+      <ProjectReference Include="..\AuthApi.Data\AuthApi.Data.csproj" />
+      <ProjectReference Include="..\AuthApi.Infrastructure\AuthApi.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+      <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.3.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    </ItemGroup>
+
+</Project>

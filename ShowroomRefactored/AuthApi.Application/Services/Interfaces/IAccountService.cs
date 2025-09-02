@@ -1,8 +1,9 @@
-﻿using System.Security.Claims;
-using UserService.API.DTOs.Requests;
-using UserService.API.DTOs.Response;
+using System.Security.Claims;
+using AuthApi.Contracts.DTOs.Request;
+using AuthApi.Contracts.DTOs.Response;
+using Microsoft.AspNetCore.Http;
 
-namespace UserService.API.Services.Interfaces;
+namespace AuthApi.Application.Services.Interfaces;
 
 public interface IAccountService
 {
