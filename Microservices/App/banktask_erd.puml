@@ -1,0 +1,67 @@
+@startuml
+title Entity Relationship Diagram - BankTask
+
+entity User {
+  * Id: string [PK]
+  --
+  Name: string
+  Surname: string
+  Email: string
+  ImageId: guid
+}
+
+entity Contact {
+  * UserId: string [PK, FK → User.Id]
+  --
+  PhoneNumber: string
+  Email: string
+  PhoneVerified: bool
+  EmailVerified: bool
+}
+
+entity Image {
+  * Id: guid [PK]
+  --
+  ImagePath: string
+  Extension: string
+  SizeInBytes: long
+  UploadedAt: datetime
+  CreatedAt: datetime
+  UpdatedAt: datetime?
+  DeletedAt: datetime?
+  IsDeleted: bool
+}
+
+entity Document {
+  * Id: guid [PK]
+  --
+  CustomerId: guid [FK → User.Id]
+  DocumentType: string
+  OriginalFileName: string
+  StoredFileName: string
+  ContentType: string
+  FileSize: long
+  InternalUrl: string
+  UploadedAt: datetime
+  LastAccessedAt: datetime?
+  ExpiresAt: datetime?
+  Status: string
+  IsDeleted: bool
+}
+
+entity Transaction {
+  * Id: guid [PK]
+  --
+  UserId: string [FK → User.Id]
+  ToUserId: string
+  Amount: decimal
+  Type: string
+  Description: string?
+  CreatedAt: datetime
+}
+
+Document }o--|| User
+Contact ||--|| User
+Transaction }|--|| User
+
+@enduml

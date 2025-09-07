@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: documentservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: documentservice
+  template:
+    metadata:
+      labels:
+        app: documentservice
+    spec:
+      containers:
+        - name: documentservice
+          image: profbat018/banktask-documentservice
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: documentservice
+spec:
+  selector:
+    app: documentservice
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

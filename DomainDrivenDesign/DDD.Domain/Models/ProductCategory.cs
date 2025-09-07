@@ -7,14 +7,25 @@ using System.Threading.Tasks;
 namespace DDD.Domain.Models;
 
 
+
 public class ProductCategory
 {
-    public string ProductCategoryId { get; set; } = Guid.NewGuid().ToString();
-    public string ProductId { get; set; }
-    public string CategoryId { get; set; }
+    public string ProductCategoryId { get; private set; }
+    public string ProductId { get; private set; }
+    public string CategoryId { get; private set; }
 
-    public Product Product { get; set; }
-    public Category Category { get; set; }
+    public Product Product { get; private set; }
+    public Category Category { get; private set; }
 
+    protected ProductCategory() { }
 
+    public ProductCategory(Product product, Category category)
+    {
+        Product = product ?? throw new ArgumentNullException(nameof(product));
+        Category = category ?? throw new ArgumentNullException(nameof(category));
+
+        ProductId = product.Id;
+        CategoryId = category.CategoryName;
+        ProductCategoryId = Guid.NewGuid().ToString();
+    }
 }
