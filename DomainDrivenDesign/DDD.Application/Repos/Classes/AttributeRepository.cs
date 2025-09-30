@@ -1,5 +1,6 @@
 ﻿using DDD.Application.Repos.Interfaces;
 using DDD.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,4 +27,12 @@ class AttributeRepository : Repository<Attribute>, IAttributeRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task<Attribute?> GetByNameAsync(string name)
+    {
+        return await _context.Attributes
+            .Include(a => a.AttributeValues)
+            .FirstOrDefaultAsync(a => a.AttributeName == name);
+    }
+
 }

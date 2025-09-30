@@ -7,12 +7,32 @@ using System.Threading.Tasks;
 namespace DDD.Domain.Models;
 
 
+
 public class ProductImage
 {
-    // Unique and at the same time PK 
-    public string ImageName { get; set; }
-    public string ProductId { get; set; }
-    public bool IsMain { get; set; }
-    public string ImagePath { get; set; }
-    public Product Product { get; set; }
+    public string ImageName { get; private set; }  // PK
+    public string ProductId { get; private set; }
+    public string ImagePath { get; private set; }
+    public bool IsMain { get; private set; }
+
+    public Product Product { get; private set; }
+
+    protected ProductImage() { }
+
+    public ProductImage(string imageName, string path, bool isMain, Product product)
+    {
+        if (string.IsNullOrWhiteSpace(imageName))
+            throw new ArgumentException("Image name cannot be empty.");
+        if (string.IsNullOrWhiteSpace(path))
+            throw new ArgumentException("Image path cannot be empty.");
+
+        ImageName = imageName;
+        ImagePath = path;
+        IsMain = isMain;
+        Product = product ?? throw new ArgumentNullException(nameof(product));
+        ProductId = product.Id;
+    }
+
+    public void SetAsMain() => IsMain = true;
+    public void UnsetAsMain() => IsMain = false;
 }

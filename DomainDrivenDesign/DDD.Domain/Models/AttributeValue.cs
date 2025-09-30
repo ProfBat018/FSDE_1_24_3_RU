@@ -12,11 +12,11 @@ public class AttributeValue
 {
     public string Value { get; private set; }
     public string AttributeId { get; private set; }
-    public ProductAttribute Attribute { get; private set; }
+    public Attribute Attribute { get; private set; }
 
     protected AttributeValue() { }
 
-    public AttributeValue(string value, ProductAttribute attribute)
+    public AttributeValue(string value, Attribute attribute)
     {
         if (string.IsNullOrWhiteSpace(value))
             throw new ArgumentException("Value cannot be null or empty.");

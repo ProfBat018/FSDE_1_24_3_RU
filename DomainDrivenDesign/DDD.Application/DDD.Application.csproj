@@ -7,8 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Services\Classes\" />
       <Folder Include="Services\Interfaces\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DDD.Infrastructure\DDD.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

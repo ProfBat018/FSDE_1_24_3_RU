@@ -12,5 +12,5 @@ public interface IAttributeRepository : IRepository<Attribute>
 {
     Task Update(Attribute category);
     Task<Attribute>? FindByIdAsync(int id);
-    public async Task<Attribute?> GetByNameAsync(string name)
+    public  Task<Attribute?> GetByNameAsync(string name);
 }
