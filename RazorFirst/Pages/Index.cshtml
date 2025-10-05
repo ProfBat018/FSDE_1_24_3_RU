@@ -1,0 +1,30 @@
+@page
+@model RazorFirst.Pages.Index
+
+@{
+    ViewData["Title"] = "Search a movie";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="post" class="d-flex" role="search">
+                <input class="form-control me-2" type="search" name="movieInput"  placeholder="Enter movie name:" aria-label="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    
+    @if (@Model.SearchResult != null)
+    {
+        
+        <div class="row">
+            <div class="col-md-10">
+                @foreach (var movie in @Model.SearchResult.Results)
+                {
+                  <partial name="Shared/_MoviePartial" model="@movie"/>
+                }
+            </div>
+        </div>
+    }
+</div>

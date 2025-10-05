@@ -1,0 +1,6 @@
+﻿@* In ASP.NET Core, _ValidationScriptsPartial.cshtml is a partial view commonly used to enable client-side validation in forms. It contains the necessary JavaScript libraries for jQuery Validation and jQuery Unobtrusive Validation, which work in conjunction with data annotations on your models to provide instant feedback to users about input errors.
+Purpose:
+The primary purpose of _ValidationScriptsPartial.cshtml is to include the client-side validation scripts in the appropriate location within your Razor Pages or MVC views. This ensures that validation rules defined in your models (e.g., [Required], [StringLength]) are enforced in the browser before the form data is submitted to the server.
+ *@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

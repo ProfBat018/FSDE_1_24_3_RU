@@ -1,0 +1,52 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/users/{**catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "user-service", "Port": 80 }
+      ],
+      "UpstreamPathTemplate": "/users/{**catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/contacts/{**catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "contact-service", "Port": 80 }
+      ],
+      "UpstreamPathTemplate": "/contacts/{**catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/documents/{**catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "document-service", "Port": 80 }
+      ],
+      "UpstreamPathTemplate": "/documents/{**catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/transactions/{**catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "transaction-service", "Port": 80 }
+      ],
+      "UpstreamPathTemplate": "/transactions/{**catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/images/{**catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "image-service", "Port": 80 }
+      ],
+      "UpstreamPathTemplate": "/images/{**catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:7000"
+  }
+}

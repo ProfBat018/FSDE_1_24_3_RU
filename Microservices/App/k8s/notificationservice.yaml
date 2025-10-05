@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: notificationservice
+spec:
+  selector:
+    app: notificationservice
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notificationservice
+  labels:
+    app: notificationservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notificationservice
+  template:
+    metadata:
+      labels:
+        app: notificationservice
+    spec:
+      containers:
+        - name: notificationservice
+          image: profbat018/banktask-notificationservice:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+            - name: MongoSettings__Database
+              value: "NotificationDb"
+            - name: ConnectionStrings__MongoDb
+              value: "mongodb://mongo:27017"
+            - name: RabbitMQ__Host
+              value: "rabbitmq"
+            - name: RabbitMQ__Exchange
+              value: "audit_exchange"
+            - name: RabbitMQ__Queue
+              value: "notification_queue"

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imageservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: imageservice
+  template:
+    metadata:
+      labels:
+        app: imageservice
+    spec:
+      containers:
+        - name: imageservice
+          image: profbat018/banktask-imageservice
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: imageservice
+spec:
+  selector:
+    app: imageservice
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contactservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contactservice
+  template:
+    metadata:
+      labels:
+        app: contactservice
+    spec:
+      containers:
+        - name: contactservice
+          image: profbat018/banktask-contactservice
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: contactservice
+spec:
+  selector:
+    app: contactservice
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

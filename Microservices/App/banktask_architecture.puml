@@ -1,0 +1,36 @@
+@startuml
+title BankTask Mikroservis Arxitekturası
+
+actor Client
+
+Client -> ApiGateway: HTTP (REST)
+
+ApiGateway -> UserService: HTTP (api/users)
+ApiGateway -> ContactService: HTTP (api/contacts)
+ApiGateway -> TransactionService: HTTP (api/transactions)
+ApiGateway -> DocumentService: HTTP (api/documents)
+ApiGateway -> ImageService: HTTP (api/images)
+
+ContactService --> UserService: gRPC (GetUserByEmail)
+
+ImageService -> MinIO: PUT /images/{id}
+DocumentService -> MinIO: PUT /documents/{id}
+
+UserService --> MSSQL: UserDb
+ContactService --> MSSQL: ContactDb
+TransactionService --> MSSQL: TransactionDb
+ImageService --> MSSQL: ImageDb
+DocumentService --> MSSQL: DocumentDb
+
+AuditService --> MongoDB: AuditLogs
+NotificationService --> MongoDB: Notifications
+
+UserService --> RabbitMQ: user.created / updated / deleted
+ContactService --> RabbitMQ: contact.added / deleted
+DocumentService --> RabbitMQ: document.uploaded
+TransactionService --> RabbitMQ: transaction.created
+
+RabbitMQ --> AuditService: all topics (#)
+RabbitMQ --> NotificationService: transaction.created
+
+@enduml
