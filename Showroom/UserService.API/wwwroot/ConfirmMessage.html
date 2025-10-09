@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; }
+        p { font-size: 16px; color: #555; }
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Здравствуйте, {User}!</h2>
+    <p>Пожалуйста, подтвердите свой email, нажав на кнопку ниже:</p>
+    <a class="button" href="{ConfirmationLink}">Подтвердить Email</a>
+    <p>Если вы не запрашивали регистрацию, проигнорируйте это письмо.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auditservice
+  namespace: banktask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auditservice
+  template:
+    metadata:
+      labels:
+        app: auditservice
+    spec:
+      containers:
+        - name: auditservice
+          image: profbat018/banktask-auditservice:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+            - name: MongoDb__ConnectionString
+              value: "mongodb://mongo:27017"
+            - name: MongoDb__Database
+              value: "AuditDb"
+            - name: RabbitMQ__Host
+              value: "rabbitmq"
+            - name: RabbitMQ__Port
+              value: "5672"
+            - name: RabbitMQ__User
+              value: "guest"
+            - name: RabbitMQ__Pass
+              value: "guest"
+            - name: RabbitMQ__Queue
+              value: "audit_queue"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auditservice
+  namespace: banktask
+spec:
+  selector:
+    app: auditservice
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
